@@ -37,7 +37,18 @@ public final class Threaduins {
 	 */
 	public static Thread getWorkaholic(PrintStream s) {
 		// TODO
-		return null;
+		Thread workaholicThread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (!Thread.interrupted()) {
+					System.out.println(WORKAHOLIC_WORKING_MSG);
+				}
+				System.out.println(WORKAHOLIC_STOP_MSG);
+			}
+		});
+		return workaholicThread;
+		//Quelle zu Runnable Ansatz mit interrupt: https://stackoverflow.com/questions/20908675/stop-an-infinite-loop-within-a-thread
+		//Siehe Post von Adam Kaplan vom 3. Jan 2014
 	}
 
 	/**
@@ -80,7 +91,14 @@ public final class Threaduins {
 
 		// workaholic example
 		final Thread workaholic = getWorkaholic(System.out);
-		stopWorkaholic(workaholic);
+		//stopWorkaholic(workaholic);
+		workaholic.start();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		workaholic.interrupt();
 
 		// procrastinator example
 		// final Thread luckyProc = getLuckyProcrastinator(System.out);
