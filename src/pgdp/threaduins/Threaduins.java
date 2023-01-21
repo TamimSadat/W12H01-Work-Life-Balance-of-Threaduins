@@ -40,7 +40,7 @@ public final class Threaduins {
 		Thread workaholicThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while (!Thread.interrupted()) {
+				while (!Thread.currentThread().isInterrupted()) {
 					System.out.println(WORKAHOLIC_WORKING_MSG);
 				}
 				System.out.println(WORKAHOLIC_STOP_MSG);
