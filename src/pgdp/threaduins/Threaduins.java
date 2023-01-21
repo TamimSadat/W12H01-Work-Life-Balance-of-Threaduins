@@ -41,9 +41,9 @@ public final class Threaduins {
 			@Override
 			public void run() {
 				while (!Thread.currentThread().isInterrupted()) {
-					System.out.println(WORKAHOLIC_WORKING_MSG);
+					s.println(WORKAHOLIC_WORKING_MSG);
 				}
-				System.out.println(WORKAHOLIC_STOP_MSG);
+				s.println(WORKAHOLIC_STOP_MSG);
 			}
 		});
 		return workaholicThread;
