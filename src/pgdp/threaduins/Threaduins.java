@@ -68,8 +68,8 @@ public final class Threaduins {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		workaholic.interrupt();
 		System.out.println(STOPPED_MSG);
+		workaholic.interrupt();
 	}
 
 	/**
