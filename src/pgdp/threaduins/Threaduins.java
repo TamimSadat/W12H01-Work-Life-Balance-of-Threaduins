@@ -63,13 +63,13 @@ public final class Threaduins {
 		workaholic.start();
 		System.out.println(STOP_MSG);
 		signal.await();
+		workaholic.interrupt();
 		try {
 			workaholic.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		System.out.println(STOPPED_MSG);
-		workaholic.interrupt();
 	}
 
 	/**
