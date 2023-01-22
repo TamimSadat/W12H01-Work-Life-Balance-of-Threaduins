@@ -60,6 +60,16 @@ public final class Threaduins {
 	 */
 	public static void stopWorkaholic(Thread workaholic) {
 		// TODO
+		workaholic.start();
+		System.out.println(STOP_MSG);
+		signal.await();
+		try {
+			workaholic.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		workaholic.interrupt();
+		System.out.println(STOPPED_MSG);
 	}
 
 	/**
@@ -91,14 +101,8 @@ public final class Threaduins {
 
 		// workaholic example
 		final Thread workaholic = getWorkaholic(System.out);
-		//stopWorkaholic(workaholic);
-		workaholic.start();
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		workaholic.interrupt();
+		stopWorkaholic(workaholic);
+
 
 		// procrastinator example
 		// final Thread luckyProc = getLuckyProcrastinator(System.out);
