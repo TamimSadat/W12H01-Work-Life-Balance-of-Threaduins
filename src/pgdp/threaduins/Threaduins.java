@@ -110,7 +110,7 @@ public final class Threaduins {
 		System.out.println(STOP_MSG);
 		signal.await();
 		synchronized (procrastinator) {
-			procrastinator.notify();
+			procrastinator.notifyAll();
 		}
 		System.out.println(STOPPED_MSG);
 	}
