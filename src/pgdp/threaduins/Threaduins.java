@@ -81,7 +81,21 @@ public final class Threaduins {
 	 */
 	public static Thread getLuckyProcrastinator(PrintStream s) {
 		// TODO
-		return null;
+		Thread workaholicThread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				s.println(PROCRASTINATOR_PROCRASTINATING_MSG);
+				synchronized (Thread.currentThread()) {
+					try {
+						Thread.currentThread().wait();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				s.println(LUCKY_PROCRASTINATOR_WORKING_MSG);
+			}
+		});
+		return workaholicThread;
 	}
 
 	/**
@@ -92,6 +106,13 @@ public final class Threaduins {
 	 */
 	public static void stopProcrastinator(Thread procrastinator) {
 		// TODO
+		procrastinator.start();
+		System.out.println(STOP_MSG);
+		signal.await();
+		synchronized (procrastinator) {
+			procrastinator.notify();
+		}
+		System.out.println(STOPPED_MSG);
 	}
 
 	public static void main(String... args) {
@@ -100,13 +121,12 @@ public final class Threaduins {
 		Threaduins.setSignal(new ConsoleSignal());
 
 		// workaholic example
-		final Thread workaholic = getWorkaholic(System.out);
-		stopWorkaholic(workaholic);
-
+		//final Thread workaholic = getWorkaholic(System.out);
+		//stopWorkaholic(workaholic);
 
 		// procrastinator example
-		// final Thread luckyProc = getLuckyProcrastinator(System.out);
-		// stopProcrastinator(luckyProc);
+		final Thread luckyProc = getLuckyProcrastinator(System.out);
+		stopProcrastinator(luckyProc);
 	}
 
 }
